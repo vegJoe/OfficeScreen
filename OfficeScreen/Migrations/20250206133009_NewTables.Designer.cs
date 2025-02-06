@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeScreen.Data;
 
@@ -10,9 +11,11 @@ using OfficeScreen.Data;
 namespace OfficeScreen.Migrations
 {
     [DbContext(typeof(ODDSApiContext))]
-    partial class ODDSApiContextModelSnapshot : ModelSnapshot
+    [Migration("20250206133009_NewTables")]
+    partial class NewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");

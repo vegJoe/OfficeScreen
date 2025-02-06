@@ -9,6 +9,11 @@ namespace OfficeScreen.Data
     {
         public ODDSApiContext(DbContextOptions<ODDSApiContext> options) : base(options) { }
 
+        public DbSet<OfficeScreen.Models.Entities.Webcomic> webcomics { get; set; } = default!;
+        public DbSet<OfficeScreen.Models.Entities.ImportantNotes> importantNotes { get; set; } = default!;
+        public DbSet<OfficeScreen.Models.Entities.LunchMenu> lunchMenu { get; set; } = default!;
+        public DbSet<OfficeScreen.Models.Entities.StatusMessage> statusMessage { get; set; } = default!;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
