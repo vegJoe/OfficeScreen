@@ -7671,11 +7671,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen_Project\\OfficeScreen\\OfficeScreen.csproj",
+      "projectUniqueName": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen\\OfficeScreen\\OfficeScreen.csproj",
       "projectName": "OfficeScreen",
-      "projectPath": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen_Project\\OfficeScreen\\OfficeScreen.csproj",
+      "projectPath": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen\\OfficeScreen\\OfficeScreen.csproj",
       "packagesPath": "C:\\Users\\ian_h\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen_Project\\OfficeScreen\\obj\\",
+      "outputPath": "C:\\Users\\ian_h\\OneDrive\\CODE_REPO\\OfficeScreen\\OfficeScreen\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
