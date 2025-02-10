@@ -11,8 +11,8 @@ using OfficeScreen.Data;
 namespace OfficeScreen.Migrations
 {
     [DbContext(typeof(ODDSApiContext))]
-    [Migration("20250206133009_NewTables")]
-    partial class NewTables
+    [Migration("20250210111652_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,6 +199,12 @@ namespace OfficeScreen.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AccessToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool?>("Admin")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -210,8 +216,13 @@ namespace OfficeScreen.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("IsAdmin")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -225,6 +236,10 @@ namespace OfficeScreen.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")

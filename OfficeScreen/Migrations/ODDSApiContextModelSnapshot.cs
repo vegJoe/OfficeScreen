@@ -166,7 +166,6 @@ namespace OfficeScreen.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("WeeklyMenu")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -196,6 +195,12 @@ namespace OfficeScreen.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AccessToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool?>("Admin")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -207,8 +212,13 @@ namespace OfficeScreen.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool?>("IsAdmin")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -222,6 +232,10 @@ namespace OfficeScreen.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
