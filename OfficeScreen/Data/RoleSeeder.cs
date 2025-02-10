@@ -8,7 +8,7 @@ namespace OfficeScreen.Data
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string[] roleNames = { "ADMIN", "USER" };
+            string[] roleNames = ["ADMIN", "USER"];
 
             foreach (var roleName in roleNames)
             {
