@@ -32,6 +32,74 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OfficeScreen.Controllers.WebcomicsController",
+    "Method": "PostWebcomic",
+    "RelativePath": "api/Webcomics",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "comicDto",
+        "Type": "OfficeScreen.Models.Dtos.ComicDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OfficeScreen.Models.Dtos.ComicDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OfficeScreen.Controllers.WebcomicsController",
+    "Method": "GetWebcomic",
+    "RelativePath": "api/Webcomics/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OfficeScreen.Models.Dtos.ComicDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OfficeScreen.Controllers.WebcomicsController",
+    "Method": "DeleteWebcomic",
+    "RelativePath": "api/Webcomics/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OfficeScreen.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

@@ -8,7 +8,6 @@ namespace OfficeScreen.Models.Entities
         public int Id { get; set; }
         public string? Text { get; set; }
         public bool? IsOnline { get; set; }
-        public string? FilePath { get; set; }
-        public string? Url { get; set; }
+        public string? Source { get; set; }
     }
 }

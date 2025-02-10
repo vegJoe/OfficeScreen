@@ -270,16 +270,13 @@ namespace OfficeScreen.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool?>("IsOnline")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Text")
+                    b.Property<string>("Source")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Text")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
