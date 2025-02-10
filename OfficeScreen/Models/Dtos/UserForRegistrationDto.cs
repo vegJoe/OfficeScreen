@@ -13,7 +13,7 @@ namespace OfficeScreen.Models.Dtos
         [Required(ErrorMessage = "First Name is required")]
         public string? FirstName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Last Nmae is required")]
+        [Required(ErrorMessage = "Last Name is required")]
         public string? LastName { get; set; } = string.Empty;
 
         
