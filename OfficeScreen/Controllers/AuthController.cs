@@ -1,84 +1,105 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Data;
+using System.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using OfficeScreen.Data;
+using OfficeScreen.Models.Dtos;
 using OfficeScreen.Models.Entities;
+using SymmetricSecurityKey = Microsoft.IdentityModel.Tokens.SymmetricSecurityKey;
 
-[Route("api/auth")]
-[ApiController]
-public class AuthController : ControllerBase
+
+namespace OfficeScreen.Controllers
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-    private readonly IConfiguration _configuration;
 
-    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+
+    [ApiController]
+    [Route("api/auth")]
+    public class AuthController : ControllerBase
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _configuration = configuration;
-    }
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IConfiguration _configuration;
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel model)
-    {
-        var user = new User { UserName = model.UserName, Email = model.UserName };
-        var result = await _userManager.CreateAsync(user, model.Password);
-
-        if (!result.Succeeded)
-            return BadRequest(result.Errors);
-
-        await _userManager.AddToRoleAsync(user, "User");
-
-        return Ok(new { message = "User created successfully" });
-    }
-
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
-    {
-        var user = await _userManager.FindByEmailAsync(model.UserName);
-        if (user == null || !(await _userManager.CheckPasswordAsync(user, model.Password)))
-            return Unauthorized("Invalid credentials");
-
-        var token = GenerateJwtToken(user);
-        return Ok(new { token });
-    }
-
-    private string GenerateJwtToken(User user)
-    {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, "User")
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] UserForRegistrationDto regModel)
+        {
+            var regUser = new User {UserName = regModel.UserName, FirstName = regModel.FirstName!, LastName = regModel.LastName!, Admin = regModel.Admin };
+            var result = await _userManager.CreateAsync(regUser, regModel.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            string role = (regUser.Admin == true ? RoleDefinitions.admin.ToString() : RoleDefinitions.user.ToString());
+
+            await _userManager.AddToRoleAsync(regUser, role);
+
+            return CreatedAtAction(nameof(Register), new { id = regUser.Id }, new
+            {
+                message = "User registered successfully!",
+                fullname = regModel.Fullname,
+                userId = regUser.Id,
+                regModel.Admin
+            });
+        }
+
+
+
+
+
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserForAuthenticationDto authModel)
+        {
+
+            
+             var authUser = await _userManager.FindByNameAsync(authModel.UserName!);
+            if (authUser == null || !(await _userManager.CheckPasswordAsync(authUser, authModel.Password)))
+                return Unauthorized("Invalid credentials");
+
+
+
+            
+            var token = GenerateJwtToken(authUser);
+            return Ok(new { token});
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]!));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+        {
+            new (JwtRegisteredClaimNames.Sub, user.Id),
+            new (ClaimTypes.Role, (user.Admin == true ? RoleDefinitions.admin.ToString() : RoleDefinitions.user.ToString()))
         };
 
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:Expires"])),
-            signingCredentials: credentials
-        );
-        
+            var token = new JwtSecurityToken(
+                issuer: _configuration["JwtSettings:Issuer"],
+                audience: _configuration["JwtSettings:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:Expires"])),
+                signingCredentials: credentials
+            );
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+           
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
-}
 
-public class RegisterModel
-{
-    public string UserName { get; set; }
-    public string Password { get; set; }
-}
-
-public class LoginModel
-{
-    public string UserName { get; set; }
-    public string Password { get; set; }
 }
