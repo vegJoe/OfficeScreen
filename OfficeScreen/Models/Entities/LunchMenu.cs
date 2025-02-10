@@ -7,6 +7,6 @@ namespace OfficeScreen.Models.Entities
         [Required]
         public int Id { get; set; }
 
-        public string WeeklyMenu { get; set; }
+        public string? WeeklyMenu { get; set; }
     }
 }

@@ -30,8 +30,14 @@ namespace OfficeScreen.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    Admin = table.Column<bool>(type: "INTEGER", nullable: true),
+                    AccessToken = table.Column<string>(type: "TEXT", nullable: true),
                     RefreshToken = table.Column<string>(type: "TEXT", nullable: true),
                     RefreshTokenExpireTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -50,6 +56,61 @@ namespace OfficeScreen.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "importantNotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Note = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_importantNotes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "lunchMenu",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    WeeklyMenu = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_lunchMenu", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "statusMessage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Message = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_statusMessage", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "webcomics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Text = table.Column<string>(type: "TEXT", nullable: true),
+                    IsOnline = table.Column<bool>(type: "INTEGER", nullable: true),
+                    FilePath = table.Column<string>(type: "TEXT", nullable: true),
+                    Url = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_webcomics", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +274,18 @@ namespace OfficeScreen.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "importantNotes");
+
+            migrationBuilder.DropTable(
+                name: "lunchMenu");
+
+            migrationBuilder.DropTable(
+                name: "statusMessage");
+
+            migrationBuilder.DropTable(
+                name: "webcomics");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
