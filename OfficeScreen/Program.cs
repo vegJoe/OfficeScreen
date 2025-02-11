@@ -23,6 +23,7 @@ namespace OfficeScreen
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ODDSApiContext>()
                 .AddDefaultTokenProviders();
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddAuthentication()
                 .AddJwtBearer();
