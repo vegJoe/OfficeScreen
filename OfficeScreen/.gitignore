@@ -365,9 +365,5 @@ FodyWeavers.xsd
 # Migrations - ignore all migrations
 OfficeScreen/Migrations/*
 
-# db - ignore all dbs
-oddsapi.db
-oddsapi.db-shm
-oddsapi.db-wal
-
-OfficeScreen/obj/debug/net8.0/*
+# Db - ignore db
+*.db
