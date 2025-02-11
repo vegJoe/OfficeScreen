@@ -367,3 +367,6 @@ OfficeScreen/Migrations/*
 
 # Db - ignore db
 *.db
+
+OfficeScreen/bin/debug/net8.0/*
+OfficeScreen/obj/debug/net8.0/*
