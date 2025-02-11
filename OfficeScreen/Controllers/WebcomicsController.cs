@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeScreen.Data;
 using OfficeScreen.Models.Dtos;
 using OfficeScreen.Models.Entities;
+using OfficeScreen.Models.Helpers;
 
 namespace OfficeScreen.Controllers
 {
@@ -31,16 +32,80 @@ namespace OfficeScreen.Controllers
 
         // GET: api/Webcomics
         //[Authorize(Roles = "Admin")]
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<ComicDto>>> Getwebcomics(int pageNumber = 1, int pageSize = 10, string? sortBy = null, string? filter = null)
-        //{
-        //    if (pageNumber < 1 || pageSize < 1)
-        //    {
-        //        return BadRequest("Invalid pageNumber or pageSize");
-        //    }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComicDto>>> Getwebcomics(int page = 1, int pageSize = 20)
+        {
+            var quary = _context.webcomics.AsQueryable();
 
-            
-        //}
+            var totalItems = await quary.CountAsync();
+
+            var items = await quary
+                        .ProjectTo<ComicDto>(_mapper.ConfigurationProvider)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+
+            var result = new PagedResult<ComicDto>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize)
+            };
+
+            return Ok(result);
+        }
+
+        [HttpGet("random")]
+        public async Task<ActionResult<ComicDto>> GetRandomwebcomic()
+        {
+            Random ran = new Random();
+            var minId = await _context.webcomics.MinAsync(w => w.Id);
+            var maxId = await _context.webcomics.MaxAsync(w => w.Id);
+
+            var randomComic = ran.Next(minId, maxId);
+
+            var comicDto = await _context.webcomics
+                .Where(c => c.Id == randomComic)
+                .ProjectTo<ComicDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            if (comicDto == null)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Title = "Comic not found",
+                    Status = 404,
+                    Instance = HttpContext.Request.Path
+                });
+            }
+
+            return comicDto;
+        }
+
+        [HttpGet("latest")]
+        public async Task<ActionResult<ComicDto>> GetLatestwebcomic()
+        {
+            var maxId = await _context.webcomics.MaxAsync(w => w.Id);
+
+            var comicDto = await _context.webcomics
+                .Where(c => c.Id == maxId)
+                .ProjectTo<ComicDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            if (comicDto == null)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Title = "Comic not found",
+                    Status = 404,
+                    Instance = HttpContext.Request.Path
+                });
+            }
+
+            return comicDto;
+        }
 
         // GET: api/Webcomics/5
         //[Authorize(Roles = "Admin")]
