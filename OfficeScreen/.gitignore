@@ -367,3 +367,6 @@ OfficeScreen/Migrations/*
 
 # Db - ignore db
 *.db
+
+# Folders
+/bin/Debug/net8.0

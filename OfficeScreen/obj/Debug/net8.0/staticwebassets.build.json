@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "PTmDYuJ7vlyrYGdBlTlZsLxWtJMqWyT7bRnh+NcOd+I=",
+  "Hash": "FU1Qx4GRqDoFajFuuTXjriNz0dVDu6xxKSONZ+RMPVE=",
   "Source": "OfficeScreen",
   "BasePath": "_content/OfficeScreen",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

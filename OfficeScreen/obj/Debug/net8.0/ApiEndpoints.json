@@ -132,6 +132,26 @@
   },
   {
     "ContainingType": "OfficeScreen.Controllers.WebcomicsController",
+    "Method": "GetLatestwebcomic",
+    "RelativePath": "api/Webcomics/latest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "OfficeScreen.Models.Dtos.ComicDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OfficeScreen.Controllers.WebcomicsController",
     "Method": "GetRandomwebcomic",
     "RelativePath": "api/Webcomics/random",
     "HttpMethod": "GET",
