@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OfficeScreen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+990109fbb55ade887ece7692d42afe96799b859e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a8c2a15beaf55759fa5fbda30220f3f8c9c8222")]
 [assembly: System.Reflection.AssemblyProductAttribute("OfficeScreen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OfficeScreen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
